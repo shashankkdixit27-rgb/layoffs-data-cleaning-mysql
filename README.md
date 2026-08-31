@@ -73,5 +73,6 @@ Will perform EDA to find:
 Which industry laid off most?
 Which year had max layoffs?
 Company-wise layoff trends
+https://www.linkedin.com/in/shashank-dixit-66986a194/
 👨‍💻 Author
 Shashank Dixit - Aspiring Data Analyst
