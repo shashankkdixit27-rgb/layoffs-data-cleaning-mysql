@@ -71,11 +71,6 @@ Data Cleaning Concepts
 Standardized company, industry, country fields
 Proper DATE data type
 Ready for Exploratory Data Analysis (EDA)
-🚀 Next Steps
-Will perform EDA to find:
-Which industry laid off most?
-Which year had max layoffs?
-Company-wise layoff trends
 👨‍💻 Author
 Shashank Dixit - Aspiring Data Analyst
 https://www.linkedin.com/in/shashank-dixit-66986a194/
