@@ -33,7 +33,6 @@ UPDATE layoffs_staging2 SET company = TRIM(company);
 UPDATE layoffs_staging2 SET industry = 'Crypto' WHERE industry LIKE 'Crypto%';
 UPDATE layoffs_staging2 SET country = TRIM(TRAILING '.' FROM country);
 
-27 lines hidden
 3. Fix Date Format
 Date was TEXT in format MM/DD/YYYY
 Converted using STR_TO_DATE()
@@ -55,8 +54,6 @@ Code
     - 02_standardize_data.sql
     - 03_handle_nulls.sql
     - 04_fix_dates.sql
-
-3 lines hidden
 💻 Tech Stack
 MySQL Workbench
 Window Functions (ROW_NUMBER)
