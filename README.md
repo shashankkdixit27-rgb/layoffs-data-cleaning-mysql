@@ -26,7 +26,8 @@ This project focuses on cleaning a raw layoffs dataset (2020-2023) which was mes
 - Created `layoffs_staging2` table with row_num column
 - Deleted where row_num > 1
 - Solved **MySQL Error 1175 - Safe Update Mode** using `SET SQL_SAFE_UPDATES = 0`
-###2. Standardize Data
+
+2. Standardize Data
 ```sql
 UPDATE layoffs_staging2 SET company = TRIM(company);
 UPDATE layoffs_staging2 SET industry = 'Crypto' WHERE industry LIKE 'Crypto%';
