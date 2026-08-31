@@ -26,24 +26,29 @@ This project focuses on cleaning a raw layoffs dataset (2020-2023) which was mes
 - Created `layoffs_staging2` table with row_num column
 - Deleted where row_num > 1
 - Solved **MySQL Error 1175 - Safe Update Mode** using `SET SQL_SAFE_UPDATES = 0`
-
 ### 2. Standardize Data
 ```sql
 UPDATE layoffs_staging2 SET company = TRIM(company);
 UPDATE layoffs_staging2 SET industry = 'Crypto' WHERE industry LIKE 'Crypto%';
 UPDATE layoffs_staging2 SET country = TRIM(TRAILING '.' FROM country);
 
-3. Fix Date Format
-Date was TEXT in format MM/DD/YYYY
-Converted using STR_TO_DATE()
-Solved Error 1292 - Truncated incorrect date value - Changed %y to %Y for 4-digit year
-SQL
+### 3. Fix Date Format
 UPDATE layoffs_staging2 SET `date` = STR_TO_DATE(`date`, '%m/%d/%Y');
 ALTER TABLE layoffs_staging2 MODIFY COLUMN `date` DATE;
-4. Handle NULL & Blank Values
-Set blank industry to NULL
-Filled NULL industry based on company name
-Deleted rows where both total_laid_off and percentage_laid_off were NULL
+### 4. Handle NULL & Blank Values
+```sql
+-- Set blank to NULL
+UPDATE layoffs_staging2 SET industry = NULL WHERE industry = '';
+
+-- Fill NULL industry based on company
+UPDATE layoffs_staging2 t1
+JOIN layoffs_staging2 t2 ON t1.company = t2.company
+SET t1.industry = t2.industry
+WHERE t1.industry IS NULL AND t2.industry IS NOT NULL;
+
+-- Delete rows with no layoff data
+DELETE FROM layoffs_staging2 
+WHERE total_laid_off IS NULL AND percentage_laid_off IS NULL;
 📁 Repository Structure
 Code
 /data
@@ -66,11 +71,9 @@ Proper DATE data type
 Ready for Exploratory Data Analysis (EDA)
 🚀 Next Steps
 Will perform EDA to find:
-
 Which industry laid off most?
 Which year had max layoffs?
 Company-wise layoff trends
-https://www.linkedin.com/in/shashank-dixit-66986a194/
 👨‍💻 Author
 Shashank Dixit - Aspiring Data Analyst
 https://www.linkedin.com/in/shashank-dixit-66986a194/
